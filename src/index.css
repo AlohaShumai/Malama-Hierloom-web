@@ -1,13 +1,101 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Lora:wght@400;500&display=swap');
+
+/* Theme tokens */
+:root {
+  --bg: #000000;       /* page background (black) */
+  --ink: #ffffff;      /* base text (white) */
+  --ink-dim: #d6d6d6;  /* softer paragraph text */
+  --accent: #d4a373;   /* koa/gold accent */
+  --panel: #0d0d0d;    /* charcoal panels */
+  --border: #141414;   /* subtle panel border */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Reset-ish */
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+html { scroll-behavior: smooth; }
+
+/* Typography */
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Lora', serif;       /* paragraph font */
+  font-size: 1.05rem;
+  line-height: 1.75;
 }
+p { color: var(--ink-dim); margin: .35rem 0 1rem; }
+h1, h2, h3, .brand {
+  font-family: 'Cormorant Garamond', serif; /* headings + brand */
+  color: var(--accent);
+  line-height: 1.15;
+  letter-spacing: .3px;
+  margin: 0 0 .75rem;
+}
+
+/* Layout helpers */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 1.25rem; }
+.section { padding: 6rem 0; }
+
+/* Links & buttons */
+a { color: var(--accent); text-decoration: none; }
+nav a { position: relative; font-weight: 600; color: var(--ink); opacity: .9; margin-left: 1.25rem; }
+nav a::after {
+  content: ""; position: absolute; left: 0; bottom: -6px; height: 2px; width: 0;
+  background: var(--accent); transition: width .25s ease;
+}
+nav a:hover { opacity: 1; }
+nav a:hover::after { width: 100%; }
+
+.btn {
+  display: inline-block; padding: .8rem 1.25rem; border-radius: 999px;
+  background: var(--accent); color: #000; font-weight: 700; border: none; cursor: pointer;
+  letter-spacing: .3px; transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+.btn:hover { transform: translateY(-1px); box-shadow: 0 8px 24px #00000050; }
+.btn:active { opacity: .9; }
+
+/* Header */
+.site-header {
+  position: sticky; top: 0; z-index: 10;
+  background: #000000cc; backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--accent);
+}
+.navbar {
+  display: flex; align-items: center; justify-content: center; /* center brand */
+  height: 68px; position: relative;
+}
+.brand {
+  font-weight: 700; font-size: 1.6rem; color: var(--accent);
+}
+nav { position: absolute; right: 1.25rem; }   /* nav on right */
+
+/* Hero */
+.hero { min-height: 76vh; display: flex; align-items: center; background: #000; position: relative; }
+.hero-inner { padding: 6rem 0; }
+.hero-inner h1 { font-size: clamp(2.2rem, 6.5vw, 4.25rem); }
+.hero-inner p { max-width: 720px; font-size: 1.1rem; }
+
+/* Gold rule + accents */
+.rule { height: 2px; width: 80px; background: var(--accent); margin: 1.25rem 0 2rem; }
+.left-accent { border-left: 3px solid var(--accent); padding-left: 1rem; }
+.kicker {
+  color: var(--accent); text-transform: uppercase; font-weight: 800; letter-spacing: 1px;
+}
+
+/* About panel */
+.about-wrap {
+  display: grid; gap: 2.25rem; grid-template-columns: 1.05fr .95fr;
+  background: var(--panel); border: 1px solid var(--border); border-radius: 20px; padding: 2rem;
+}
+.about img { width: 100%; border-radius: 14px; display: block; }
+#about p { color: var(--ink-dim); }  /* paragraphs already use Lora */
+
+@media (max-width: 900px) {
+  .about-wrap { grid-template-columns: 1fr; }
+  nav { position: static; margin-left: 1rem; } /* keep nav visible on small screens */
+}
+
+/* Footer */
+.site-footer { border-top: 1px solid var(--accent); padding: 2.5rem 0; color: var(--ink-dim); }
